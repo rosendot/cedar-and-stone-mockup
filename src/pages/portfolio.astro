@@ -1,0 +1,213 @@
+---
+import Layout from "../layouts/Layout.astro";
+import ImageSlot from "../components/ImageSlot.astro";
+import BeforeAfter from "../components/BeforeAfter.astro";
+import CtaBanner from "../components/CtaBanner.astro";
+import { testimonials } from "../data/testimonials";
+
+const projects = [
+  { ratio: "3/2", cap: "Flagstone patio with built-in seating", full: "Flagstone patio with built-in seating — Bend", slot: "Flagstone patio & seating" },
+  { ratio: "4/5", cap: "Plantings, second summer", full: "Backyard plantings filling in their second summer — Bend", slot: "Backyard plantings" },
+  { ratio: "1/1", cap: "Dry-stack basalt wall", full: "Dry-stack basalt retaining wall — Tumalo", slot: "Dry-stack stone wall" },
+  { ratio: "5/7", cap: "Bubbling-rock water feature", full: "Bubbling-rock water feature in a native bed — Sisters", slot: "Water feature" },
+  { ratio: "3/2", cap: "Paver fire pit at dusk", full: "Paver fire pit lit up at dusk — Redmond", slot: "Fire pit at dusk" },
+  { ratio: "16/10", cap: "New lawn & play area", full: "Fresh sod lawn and play area for the kids — Bend", slot: "Lawn & play area" },
+  { ratio: "4/5", cap: "Stone steps up the slope", full: "Stone steps climbing a sloped side yard — Bend", slot: "Stone steps on a slope" },
+  { ratio: "1/1", cap: "Drip-fed raised planters", full: "Drip-fed raised planters along a fence line — Redmond", slot: "Raised planters" },
+  { ratio: "16/9", cap: "Cedar pergola & patio", full: "Cedar pergola over a paver patio — Sisters", slot: "Pergola over patio" },
+  { ratio: "3/2", cap: "Boulders & native grasses", full: "Boulder accents in a native grass bed — Tumalo", slot: "Boulder & native grasses" },
+  { ratio: "4/5", cap: "Front-yard xeriscape", full: "Low-water front-yard xeriscape — Bend", slot: "Front-yard xeriscape" },
+  { ratio: "16/9", cap: "Built for evenings outside", full: "Backyard lit for evenings outside — Redmond", slot: "Evening-lit backyard" },
+];
+---
+
+<Layout title="Portfolio — Cedar &amp; Stone Landscape Co.">
+  <!-- ===================== PAGE HERO ===================== -->
+  <section class="page-hero" id="top">
+    <ImageSlot label="Wide photo: finished backyard with patio, fire pit, and plantings at golden hour" />
+    <div class="scrim"></div>
+    <div class="hero-inner">
+      <div class="wrap">
+        <p class="eyebrow">Recent work</p>
+        <h1>Yards we've built around central Oregon.</h1>
+        <p class="subhead">
+          Patios, plantings, stone walls, and water features from Bend to
+          Sisters. Tap any photo to see it up close.
+        </p>
+        <nav class="crumbs" aria-label="Breadcrumb">
+          <a href="/">Home</a>
+          <span class="sep">/</span>
+          <span class="here">Portfolio</span>
+        </nav>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== LIGHTBOX GALLERY ===================== -->
+  <section class="section lightbox-gallery" id="portfolio">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">The proof</p>
+        <h2>Twelve yards, twelve different problems solved.</h2>
+        <p>Every one of these started as a walk-through and a sketch.</p>
+      </div>
+      <div class="lb-grid" id="lbGrid">
+        {
+          projects.map((p) => (
+            <div class="lb-thumb" data-cap={p.full}>
+              <ImageSlot ratio={p.ratio} label={p.slot} />
+              <span class="cap">{p.cap}</span>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <BeforeAfter />
+
+  <!-- ===================== TESTIMONIAL SLIDER ===================== -->
+  <section class="section t-slider-sec">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">From the neighbors</p>
+        <h2>What homeowners say.</h2>
+      </div>
+      <div class="t-slider" id="tSlider">
+        {
+          testimonials.map((t, i) => (
+            <div class={i === 0 ? "t-slide active" : "t-slide"}>
+              <div class="stars">★★★★★</div>
+              <blockquote>"{t.quote}"</blockquote>
+              <div class="who">
+                <div class="avatar">{t.initial}</div>
+                <div class="meta">
+                  <b>{t.name}</b>
+                  <span>{t.location}</span>
+                </div>
+              </div>
+            </div>
+          ))
+        }
+        <div class="t-nav">
+          <button class="t-arrow" id="tPrev" aria-label="Previous testimonial">‹</button>
+          <div class="t-dots" id="tDots"></div>
+          <button class="t-arrow" id="tNext" aria-label="Next testimonial">›</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <CtaBanner />
+
+  <!-- ===================== LIGHTBOX OVERLAY ===================== -->
+  <div class="lightbox-overlay" id="lightbox" aria-hidden="true">
+    <div class="frame">
+      <button class="lb-close" id="lbClose" aria-label="Close">×</button>
+      <button class="lb-prev" id="lbPrev" aria-label="Previous">‹</button>
+      <button class="lb-next" id="lbNext" aria-label="Next">›</button>
+      <div class="img-slot contain" id="lbView">
+        <span class="slot-label" id="lbSlotLabel"></span>
+      </div>
+      <div class="lb-cap" id="lbCap"></div>
+    </div>
+  </div>
+</Layout>
+
+<script>
+  // ── Lightbox ───────────────────────────────────────────────────────────
+  // With no real photos yet the overlay shows the same descriptive caption the
+  // thumbnail carries. Once ImageSlot gets a `src`, swap the placeholder for
+  // an <img> here too.
+  const thumbs = Array.from(
+    document.querySelectorAll<HTMLElement>("#lbGrid .lb-thumb"),
+  );
+  const overlay = document.getElementById("lightbox");
+  const slotLabel = document.getElementById("lbSlotLabel");
+  const cap = document.getElementById("lbCap");
+
+  if (thumbs.length && overlay && cap && slotLabel) {
+    let idx = 0;
+
+    const showAt = (i: number) => {
+      idx = (i + thumbs.length) % thumbs.length;
+      const text = thumbs[idx].getAttribute("data-cap") ?? "";
+      cap.textContent = text;
+      slotLabel.textContent = text;
+    };
+    const open = (i: number) => {
+      showAt(i);
+      overlay.classList.add("open");
+      overlay.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+    };
+    const close = () => {
+      overlay.classList.remove("open");
+      overlay.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
+    };
+
+    thumbs.forEach((t, i) => t.addEventListener("click", () => open(i)));
+    document.getElementById("lbClose")?.addEventListener("click", close);
+    document.getElementById("lbPrev")?.addEventListener("click", (e) => {
+      e.stopPropagation();
+      showAt(idx - 1);
+    });
+    document.getElementById("lbNext")?.addEventListener("click", (e) => {
+      e.stopPropagation();
+      showAt(idx + 1);
+    });
+    overlay.addEventListener("click", (e) => {
+      if (e.target === overlay) close();
+    });
+    document.addEventListener("keydown", (e) => {
+      if (!overlay.classList.contains("open")) return;
+      if (e.key === "Escape") close();
+      if (e.key === "ArrowLeft") showAt(idx - 1);
+      if (e.key === "ArrowRight") showAt(idx + 1);
+    });
+  }
+
+  // ── Testimonial slider ─────────────────────────────────────────────────
+  const slider = document.getElementById("tSlider");
+  const dotsWrap = document.getElementById("tDots");
+
+  if (slider && dotsWrap) {
+    const slides = Array.from(slider.querySelectorAll<HTMLElement>(".t-slide"));
+    let i = 0;
+    let timer: ReturnType<typeof setInterval>;
+
+    slides.forEach((_, n) => {
+      const d = document.createElement("button");
+      d.className = "t-dot" + (n === 0 ? " active" : "");
+      d.setAttribute("aria-label", `Testimonial ${n + 1}`);
+      d.addEventListener("click", () => {
+        go(n);
+        reset();
+      });
+      dotsWrap.appendChild(d);
+    });
+
+    const dots = Array.from(dotsWrap.children);
+
+    function go(n: number) {
+      i = (n + slides.length) % slides.length;
+      slides.forEach((s, k) => s.classList.toggle("active", k === i));
+      dots.forEach((d, k) => d.classList.toggle("active", k === i));
+    }
+    function reset() {
+      clearInterval(timer);
+      timer = setInterval(() => go(i + 1), 6500);
+    }
+
+    document.getElementById("tPrev")?.addEventListener("click", () => {
+      go(i - 1);
+      reset();
+    });
+    document.getElementById("tNext")?.addEventListener("click", () => {
+      go(i + 1);
+      reset();
+    });
+    reset();
+  }
+</script>

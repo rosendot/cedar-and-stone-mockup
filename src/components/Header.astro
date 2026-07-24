@@ -1,0 +1,45 @@
+---
+/** Fixed site header — goes solid on scroll, collapses to a drawer on mobile. */
+---
+
+<header class="site-header" id="header">
+  <div class="wrap">
+    <a class="brand" href="/">
+      <span class="mark">C&amp;S</span>
+      <span class="name">Cedar &amp; Stone<small>Landscape Co.</small></span>
+    </a>
+    <nav class="nav" id="nav">
+      <a class="lnk" href="/services/">Services</a>
+      <a class="lnk" href="/portfolio/">Portfolio</a>
+      <a class="lnk" href="/about/">About</a>
+      <a class="lnk" href="/contact/">Contact</a>
+      <a class="btn" href="/contact/">Request an Estimate</a>
+    </nav>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<script>
+  // Header turns solid on scroll
+  const header = document.getElementById("header");
+  const onScroll = () => header?.classList.toggle("scrolled", window.scrollY > 40);
+  onScroll();
+  window.addEventListener("scroll", onScroll, { passive: true });
+
+  // Mobile nav
+  const navToggle = document.getElementById("navToggle");
+  const nav = document.getElementById("nav");
+  navToggle?.addEventListener("click", () => {
+    const open = nav?.classList.toggle("open");
+    navToggle.setAttribute("aria-expanded", open ? "true" : "false");
+  });
+  nav?.addEventListener("click", (e) => {
+    const t = e.target as HTMLElement;
+    if (t.classList.contains("lnk") || t.classList.contains("btn")) {
+      nav.classList.remove("open");
+      navToggle?.setAttribute("aria-expanded", "false");
+    }
+  });
+</script>

@@ -1,0 +1,57 @@
+---
+/**
+ * Stand-in for the Claude Design <image-slot> element.
+ *
+ * With no `src` it renders a textured placeholder captioned with the photo
+ * that belongs there — the state every slot is in until real client photos
+ * arrive. Pass `src` (and `alt`) to swap in a real image; the placeholder
+ * styling drops away automatically.
+ */
+interface Props {
+  /** Caption describing the intended photo. Shown only while empty. */
+  label?: string;
+  /** Real image URL. When set, renders an <img> instead of the placeholder. */
+  src?: string;
+  alt?: string;
+  /** object-fit: cover (default) or contain. */
+  fit?: "cover" | "contain";
+  /** CSS aspect-ratio, e.g. "4/5". Omit when the parent sets the size. */
+  ratio?: string;
+  class?: string;
+  id?: string;
+}
+
+const {
+  label,
+  src,
+  alt = "",
+  fit = "cover",
+  ratio,
+  class: className = "",
+  id,
+} = Astro.props;
+
+const classes = [
+  "img-slot",
+  fit === "contain" ? "contain" : "",
+  src ? "has-image" : "",
+  className,
+]
+  .filter(Boolean)
+  .join(" ");
+---
+
+<div class={classes} id={id} style={ratio ? `aspect-ratio:${ratio}` : undefined}>
+  {src ? (
+    <img src={src} alt={alt} loading="lazy" decoding="async" />
+  ) : (
+    <span class="slot-label">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <rect x="3" y="3" width="18" height="18" rx="2"></rect>
+        <circle cx="8.5" cy="8.5" r="1.5"></circle>
+        <path d="m21 15-5-5L5 21"></path>
+      </svg>
+      {label && <span>{label}</span>}
+    </span>
+  )}
+</div>

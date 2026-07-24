@@ -1,0 +1,193 @@
+---
+import Layout from "../layouts/Layout.astro";
+import ImageSlot from "../components/ImageSlot.astro";
+import ContactMap from "../components/ContactMap.astro";
+import CtaBanner from "../components/CtaBanner.astro";
+
+const quickFaqs = [
+  {
+    q: "How soon can you start?",
+    a: 'It depends on the season and the size of the job. Spring and early summer book out fastest — smaller work might be a couple weeks, a full install four to six. You\'ll get a real timeline with your estimate, not a vague "soon."',
+  },
+  {
+    q: "Do you do free estimates?",
+    a: "Yes, always. We'll walk the property, talk through what you want, and send back a written plan with a fixed price — no charge and no obligation to hire us.",
+  },
+  {
+    q: "What's your service area?",
+    a: "Everything within about 20 miles of Bend, including Redmond, Sisters, Tumalo, and Sunriver. A little outside that? Call us and we'll tell you honestly whether we can help.",
+  },
+];
+---
+
+<Layout title="Contact — Cedar &amp; Stone Landscape Co.">
+  <!-- ===================== PAGE HERO ===================== -->
+  <section class="page-hero" id="top">
+    <ImageSlot label="Wide photo: friendly crew member at a front door / on a porch, clipboard in hand" />
+    <div class="scrim"></div>
+    <div class="hero-inner">
+      <div class="wrap">
+        <p class="eyebrow">Get in touch</p>
+        <h1>Tell us what's bugging you about your yard.</h1>
+        <p class="subhead">
+          Weeds taking over? Patio bakes in the afternoon? Lawn that never fills
+          in? Tell us — we'll walk the property and send back a real plan with a
+          fixed price.
+        </p>
+        <nav class="crumbs" aria-label="Breadcrumb">
+          <a href="/">Home</a>
+          <span class="sep">/</span>
+          <span class="here">Contact</span>
+        </nav>
+      </div>
+    </div>
+  </section>
+
+  <ContactMap />
+
+  <!-- ===================== ESTIMATE FORM ===================== -->
+  <section class="section estimate">
+    <div class="wrap">
+      <div class="estimate-grid">
+        <div class="estimate-aside">
+          <p class="eyebrow">Request an estimate</p>
+          <h3>Tell us what you'd like done.</h3>
+          <p>
+            Fill this out and we'll get back to you within one business day —
+            usually the same day. We read every request ourselves; there's no
+            call center and no pushy follow-up.
+          </p>
+          <p>
+            Prefer to talk it through? Call
+            <a href="tel:+15415550148">(541) 555-0148</a>, Mon–Fri 7am–5pm.
+            Estimates are always free, and we'll walk the property before we
+            quote a number.
+          </p>
+        </div>
+
+        <form class="estimate-form" id="estimateForm" novalidate>
+          <div class="form-grid">
+            <div class="field full">
+              <label for="f-name">Name <span class="req">*</span></label>
+              <input
+                type="text"
+                id="f-name"
+                name="name"
+                autocomplete="name"
+                placeholder="Jane Holloway"
+                required
+              />
+            </div>
+            <div class="field">
+              <label for="f-email">Email <span class="req">*</span></label>
+              <input
+                type="email"
+                id="f-email"
+                name="email"
+                autocomplete="email"
+                placeholder="jane@email.com"
+                required
+              />
+            </div>
+            <div class="field">
+              <label for="f-phone">Phone</label>
+              <input
+                type="tel"
+                id="f-phone"
+                name="phone"
+                autocomplete="tel"
+                placeholder="(541) 555-0123"
+              />
+            </div>
+            <div class="field full">
+              <label for="f-address">Property address</label>
+              <input
+                type="text"
+                id="f-address"
+                name="address"
+                autocomplete="street-address"
+                placeholder="Street, Bend OR 97702"
+              />
+            </div>
+            <div class="field full">
+              <label for="f-details">
+                What you'd like done <span class="req">*</span>
+              </label>
+              <textarea
+                id="f-details"
+                name="details"
+                placeholder="Tell us what's bugging you — overgrown beds, a patio that bakes in the afternoon, a lawn that never fills in, a full backyard redo. The more detail, the better the estimate."
+                required></textarea>
+            </div>
+          </div>
+          <button class="btn" type="submit">Request an Estimate</button>
+          <p class="fineprint">
+            No spam, no reselling your info. Just a real reply from a real
+            person.
+          </p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FAQ CARDS ===================== -->
+  <section class="section faq">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Quick answers</p>
+        <h2>Before you reach out.</h2>
+      </div>
+      <div class="fc-grid">
+        {
+          quickFaqs.map((f) => (
+            <div class="fc-card">
+              <div class="q-mark">?</div>
+              <h3>{f.q}</h3>
+              <p>{f.a}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <CtaBanner href="#top" />
+</Layout>
+
+<script>
+  // Estimate form — demo only. The mockup has no backend, so a valid submit
+  // confirms in place rather than posting anywhere.
+  const form = document.getElementById("estimateForm") as HTMLFormElement | null;
+
+  form?.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const nameEl = document.getElementById("f-name") as HTMLInputElement;
+    const emailEl = document.getElementById("f-email") as HTMLInputElement;
+    const detailsEl = document.getElementById("f-details") as HTMLTextAreaElement;
+
+    const name = nameEl.value.trim();
+    const email = emailEl.value.trim();
+    const details = detailsEl.value.trim();
+
+    if (!name || !email || !details) {
+      ([
+        [nameEl, name],
+        [emailEl, email],
+        [detailsEl, details],
+      ] as const).forEach(([el, val]) => {
+        el.style.borderColor = val ? "" : "var(--color-primary)";
+      });
+      return;
+    }
+
+    const first = name.split(" ")[0];
+    const confirmation = document.createElement("div");
+    confirmation.className = "form-sent";
+    confirmation.innerHTML =
+      `<div class="form-sent__head">Thanks, ${first.replace(/[<>&]/g, "")}.</div>` +
+      `<p>We’ve got your request. Someone from our crew — not a call center — will get back to you within one business day to set up a walk-through. If it’s urgent, give us a call at <a href="tel:+15415550148">(541) 555-0148</a>.</p>`;
+
+    form.replaceChildren(confirmation);
+  });
+</script>

@@ -1,0 +1,74 @@
+---
+import ImageSlot from "./ImageSlot.astro";
+/** Draggable before/after comparison. Home + Portfolio. */
+---
+
+<section class="section beforeafter">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">One transformation</p>
+      <h2>From overgrown to finished.</h2>
+      <p>
+        Drag the handle to see the same backyard before we started and the day
+        we wrapped up.
+      </p>
+    </div>
+    <div class="ba-stage" id="baStage">
+      <ImageSlot class="ba-after" label="AFTER — finished yard" />
+      <ImageSlot class="ba-before" id="baBefore" label="BEFORE — overgrown yard" />
+      <span class="ba-tag b">Before</span>
+      <span class="ba-tag a">After</span>
+      <div class="ba-divider" id="baDivider"></div>
+      <div class="ba-handle" id="baHandle">⇄</div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const stage = document.getElementById("baStage");
+  const before = document.getElementById("baBefore");
+  const divider = document.getElementById("baDivider");
+  const handle = document.getElementById("baHandle");
+
+  if (stage && before && divider && handle) {
+    let dragging = false;
+
+    const setPct = (pct: number) => {
+      const p = Math.max(0, Math.min(100, pct));
+      before.style.clipPath = `inset(0 ${100 - p}% 0 0)`;
+      divider.style.left = `${p}%`;
+      handle.style.left = `${p}%`;
+    };
+
+    const fromEvent = (e: MouseEvent | TouchEvent) => {
+      const rect = stage.getBoundingClientRect();
+      const clientX =
+        "touches" in e ? e.touches[0]?.clientX ?? 0 : e.clientX;
+      setPct(((clientX - rect.left) / rect.width) * 100);
+    };
+
+    const start = (e: MouseEvent | TouchEvent) => {
+      dragging = true;
+      fromEvent(e);
+      e.preventDefault();
+    };
+    const move = (e: MouseEvent | TouchEvent) => {
+      if (dragging) fromEvent(e);
+    };
+    const end = () => {
+      dragging = false;
+    };
+
+    handle.addEventListener("mousedown", start);
+    divider.addEventListener("mousedown", start);
+    stage.addEventListener("mousedown", start);
+    window.addEventListener("mousemove", move);
+    window.addEventListener("mouseup", end);
+    handle.addEventListener("touchstart", start, { passive: false });
+    stage.addEventListener("touchstart", start, { passive: false });
+    window.addEventListener("touchmove", move, { passive: false });
+    window.addEventListener("touchend", end);
+
+    setPct(50);
+  }
+</script>

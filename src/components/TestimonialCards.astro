@@ -1,0 +1,30 @@
+---
+import { testimonials } from "../data/testimonials";
+/** Three-up quote card grid. Home + About. */
+---
+
+<section class="section testimonials">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">From the neighbors</p>
+      <h2>What homeowners say.</h2>
+    </div>
+    <div class="t-grid">
+      {
+        testimonials.map((t) => (
+          <article class="t-card">
+            <div class="stars">★★★★★</div>
+            <blockquote>"{t.quote}"</blockquote>
+            <div class="who">
+              <div class="avatar">{t.initial}</div>
+              <div class="meta">
+                <b>{t.name}</b>
+                <span>{t.location}</span>
+              </div>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>

@@ -1,0 +1,173 @@
+---
+import Layout from "../layouts/Layout.astro";
+import ImageSlot from "../components/ImageSlot.astro";
+import TestimonialCards from "../components/TestimonialCards.astro";
+import CtaBanner from "../components/CtaBanner.astro";
+
+const story = [
+  {
+    slot: "Founder by the original truck & trailer, early days",
+    title: "It started in 2008 with one truck and a trailer.",
+    paras: [
+      "Cedar & Stone began when our founder left a bigger regional outfit to do this work the way he thought it should be done — show up when you say you will, build it right the first time, and stand behind it after the check clears.",
+      "Eighteen years later it's still family-run, still based in Bend, and still small enough that you'll know the people on your property by name. We've never chased every job — just the ones we can do well.",
+    ],
+  },
+  {
+    slot: "High-desert planting: native grasses, lava rock, established bed",
+    title: "We only plant what actually thrives out here.",
+    paras: [
+      "The high desert is its own animal — cold nights, dry air, lava-rock soil, and a short window to get plants established. We've spent years learning which ones shrug all that off and which ones sulk, so your yard fills in instead of limping along.",
+      "Same thinking goes into the hardscape: the right base depth and drainage so nothing heaves when the ground freezes and thaws. Built once, built for the climate it's actually in.",
+    ],
+  },
+  {
+    slot: "The same crew on a maintenance visit, pruning & tuning",
+    title: "The crew that builds it is the crew that keeps it up.",
+    paras: [
+      "We don't hand your yard off to a rotating cast of subcontractors. The same people who set your stone and ran your irrigation are the ones who come back to prune, adjust, and tune it season after season.",
+      "They know where every line and valve is buried — so nothing gets missed, and the small problems get caught while they're still small. That's how a yard ends up looking better every year instead of slowly sliding backward.",
+    ],
+  },
+];
+
+const stats = [
+  { target: "17", label: "Years in business" },
+  { target: "600", suffix: "+", label: "Yards built & maintained" },
+  { target: "20", label: "Mile service radius of Bend" },
+  { target: "4.9", decimals: "1", suffix: "★", label: "Average review rating" },
+];
+---
+
+<Layout title="About — Cedar &amp; Stone Landscape Co.">
+  <!-- ===================== PAGE HERO ===================== -->
+  <section class="page-hero" id="top">
+    <ImageSlot label="Wide photo: the crew on site, or a truck-and-trailer with tools, real and unposed" />
+    <div class="scrim"></div>
+    <div class="hero-inner">
+      <div class="wrap">
+        <p class="eyebrow">Since 2008</p>
+        <h1>A local crew that actually sticks around.</h1>
+        <p class="subhead">
+          Family-run, Bend-based, and still answering our own phone. The people
+          who build your yard are the people who keep it up.
+        </p>
+        <nav class="crumbs" aria-label="Breadcrumb">
+          <a href="/">Home</a>
+          <span class="sep">/</span>
+          <span class="here">About</span>
+        </nav>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== STORY ===================== -->
+  <section class="section feature-alt">
+    <div class="wrap">
+      <div class="fa-rows">
+        {
+          story.map((row, i) => (
+            <div class={i % 2 === 1 ? "fa-row flip" : "fa-row"}>
+              <div class="fa-media">
+                <ImageSlot label={row.slot} />
+              </div>
+              <div class="fa-body">
+                <h3>{row.title}</h3>
+                {row.paras.map((p) => (
+                  <p>{p}</p>
+                ))}
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== STATS COUNTER ===================== -->
+  <section class="section stats" id="stats">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">By the numbers</p>
+        <h2>Seventeen years of yards, one neighborhood at a time.</h2>
+      </div>
+      <div class="stat-grid" id="statGrid">
+        {
+          stats.map((s) => (
+            <div class="stat">
+              <div
+                class="num"
+                data-target={s.target}
+                data-suffix={s.suffix}
+                data-decimals={s.decimals}
+              >
+                0
+              </div>
+              <div class="lbl">{s.label}</div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <TestimonialCards />
+  <CtaBanner />
+</Layout>
+
+<script>
+  // Stats count-up — runs once when the grid scrolls into view.
+  const grid = document.getElementById("statGrid");
+
+  if (grid) {
+    const nums = Array.from(grid.querySelectorAll<HTMLElement>(".num"));
+    let done = false;
+
+    const run = () => {
+      if (done) return;
+      done = true;
+      nums.forEach((el) => {
+        const target = parseFloat(el.dataset.target ?? "0");
+        const dec = parseInt(el.dataset.decimals ?? "0", 10);
+        const suffix = el.dataset.suffix ?? "";
+        const dur = 1400;
+        let t0: number | null = null;
+
+        const frame = (ts: number) => {
+          if (t0 === null) t0 = ts;
+          const p = Math.min(1, (ts - t0) / dur);
+          const eased = 1 - Math.pow(1 - p, 3);
+          el.textContent = (target * eased).toFixed(dec) + suffix;
+          if (p < 1) requestAnimationFrame(frame);
+          else el.textContent = target.toFixed(dec) + suffix;
+        };
+        requestAnimationFrame(frame);
+      });
+    };
+
+    // Respect reduced-motion: show the final numbers without animating.
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      nums.forEach((el) => {
+        const target = parseFloat(el.dataset.target ?? "0");
+        const dec = parseInt(el.dataset.decimals ?? "0", 10);
+        el.textContent = target.toFixed(dec) + (el.dataset.suffix ?? "");
+      });
+      done = true;
+    } else if ("IntersectionObserver" in window) {
+      const io = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) {
+              run();
+              io.disconnect();
+            }
+          });
+        },
+        { threshold: 0.4 },
+      );
+      io.observe(grid);
+    } else {
+      run();
+    }
+  }
+</script>

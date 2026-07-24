@@ -1,0 +1,93 @@
+/**
+ * Atlas Studio design tokens.
+ *
+ * Ported verbatim from the vault's design-system/tokens.css (itself a mirror of
+ * app/components/kit-previews/shared.ts). Cedar & Stone overrides only the
+ * --color-* and --font-* values in cedar.css; the type scale, spacing, radii,
+ * and shadows below come through unchanged.
+ *
+ * The Inter @import is dropped here — cedar.css loads Playfair Display + Lato,
+ * which are the faces this site actually uses.
+ */
+
+:root {
+  /* Colors — overridden by cedar.css */
+  --color-primary: #b42318;
+  --color-primary-dark: #8c1a11;
+  --color-secondary: #d4a017;
+  --color-dark: #1a1208;
+  --color-cream: #faf6f0;
+  --color-text: #2c2416;
+  --color-text-light: #6b5e4f;
+  --color-border: #e0d6c8;
+  --color-white: #ffffff;
+
+  /* Fonts — overridden by cedar.css */
+  --font-heading: Georgia, "Times New Roman", serif;
+  --font-body: -apple-system, sans-serif;
+
+  /* Font sizes */
+  --text-xs: 0.75rem;
+  --text-sm: 0.85rem;
+  --text-base: 0.95rem;
+  --text-lg: 1rem;
+  --text-xl: 1.15rem;
+  --text-2xl: 1.25rem;
+  --text-3xl: 1.75rem;
+  --text-4xl: 2.5rem;
+  --text-5xl: 4rem;
+
+  /* Line heights */
+  --leading-tight: 1.1;
+  --leading-snug: 1.2;
+  --leading-normal: 1.4;
+  --leading-relaxed: 1.5;
+  --leading-loose: 1.7;
+
+  /* Spacing */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+
+  /* Border radius */
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
+  --radius-full: 9999px;
+
+  /* Shadows */
+  --shadow-sm: 0 2px 6px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 8px 30px rgba(0, 0, 0, 0.1);
+
+  /* Max widths */
+  --max-w-sm: 800px;
+  --max-w-md: 900px;
+  --max-w-lg: 1100px;
+  --max-w-xl: 1200px;
+  --max-w-2xl: 1400px;
+
+  /* Letter spacing */
+  --tracking-tight: 1px;
+  --tracking-normal: 1.5px;
+  --tracking-wide: 3px;
+
+  /* Opacity */
+  --opacity-muted: 0.75;
+  --opacity-soft: 0.85;
+  --opacity-overlay: 0.35;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}

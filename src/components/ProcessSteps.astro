@@ -1,0 +1,45 @@
+---
+/** "How it works" — four numbered steps on the dark band. Home + Services. */
+const steps = [
+  {
+    num: "01",
+    title: "We walk the property",
+    body: "We meet at your place, look at sun, slope, and soil, and listen to what's been bugging you about the yard.",
+  },
+  {
+    num: "02",
+    title: "We design the plan",
+    body: "You get a clear plan and a fixed price up front. No guessing, no change orders halfway through.",
+  },
+  {
+    num: "03",
+    title: "We build it",
+    body: "Our own crew does the install start to finish. Most yards take one to three weeks, and we clean up daily.",
+  },
+  {
+    num: "04",
+    title: "We maintain it",
+    body: "Optional care plans keep it sharp through every season — so it actually looks better every year.",
+  },
+];
+---
+
+<section class="section process">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">How it works</p>
+      <h2>Four steps, no surprises.</h2>
+    </div>
+    <div class="step-grid">
+      {
+        steps.map((s) => (
+          <div class="step">
+            <div class="num">{s.num}</div>
+            <h3>{s.title}</h3>
+            <p>{s.body}</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

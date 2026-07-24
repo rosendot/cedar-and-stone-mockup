@@ -1,0 +1,19 @@
+---
+/** Final-call conversion banner. Appears at the bottom of every page. */
+interface Props {
+  /** Where the button points. The contact page links back to its own form. */
+  href?: string;
+}
+const { href = "/contact/" } = Astro.props;
+---
+
+<section class="section cta-banner">
+  <div class="wrap">
+    <h2>Ready to stop dreading your yard?</h2>
+    <p>
+      Tell us what's bugging you about it. We'll walk the property, talk through
+      your weekends, and send back a real plan with a fixed price.
+    </p>
+    <a class="btn" href={href}>Request an Estimate</a>
+  </div>
+</section>

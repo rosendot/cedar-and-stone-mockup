@@ -1,0 +1,179 @@
+---
+import Layout from "../layouts/Layout.astro";
+import ImageSlot from "../components/ImageSlot.astro";
+import ProcessSteps from "../components/ProcessSteps.astro";
+import TestimonialCards from "../components/TestimonialCards.astro";
+import BeforeAfter from "../components/BeforeAfter.astro";
+import ContactMap from "../components/ContactMap.astro";
+import CtaBanner from "../components/CtaBanner.astro";
+
+const pillars = [
+  {
+    icon: "🌿",
+    title: "Designed for how you live",
+    body: "We start with your weekends, not a plant catalog. Room for the kids, the grill, and the dog — laid out so it works.",
+  },
+  {
+    icon: "🪨",
+    title: "Built to last decades",
+    body: "Proper base depth, real drainage, and plants suited to the high desert. It holds up through freeze, thaw, and August heat.",
+  },
+  {
+    icon: "🤝",
+    title: "Maintained by the same crew",
+    body: "The people who built your yard are the ones who keep it up. They know every line, valve, and plant on the property.",
+  },
+];
+
+const services = [
+  {
+    icon: "🌿",
+    title: "Design & Install",
+    body: "We plan the whole yard around how you use it, then plant it so it fills in right instead of looking bare for three years.",
+    priceLabel: "From",
+    price: "$4,500",
+  },
+  {
+    icon: "🧱",
+    title: "Hardscape & Patios",
+    body: "Paver patios, dry-stack stone walls, and fire pits that stay cool underfoot and shrug off Oregon freeze-thaw.",
+    priceLabel: "From",
+    price: "$6,000",
+  },
+  {
+    icon: "💧",
+    title: "Irrigation",
+    body: "Smart drip and sprinkler systems that water deep, skip the rainy days, and cut your summer water bill.",
+    priceLabel: "From",
+    price: "$2,200",
+  },
+  {
+    icon: "🌱",
+    title: "Lawn Maintenance",
+    body: "Mowing, edging, and feeding on a set schedule — by the same two people every visit, so nothing gets missed.",
+    priceLabel: "Plans from",
+    price: "$140/mo",
+  },
+  {
+    icon: "🌳",
+    title: "Tree & Shrub Care",
+    body: "Pruning, shaping, and health checks so your trees grow strong and full instead of getting hacked back every year.",
+    priceLabel: "From",
+    price: "$300",
+  },
+  {
+    icon: "🍂",
+    title: "Seasonal Cleanups",
+    body: "Spring wake-up and fall leaf-and-bed cleanup, so the yard's ready for the next season without you lifting a rake.",
+    priceLabel: "From",
+    price: "$350",
+  },
+];
+
+const gallery = [
+  { ratio: "4/5", label: "Tall: backyard plantings" },
+  { ratio: "3/2", label: "Wide: paver patio & fire pit" },
+  { ratio: "1/1", label: "Square: stone steps" },
+  { ratio: "16/10", label: "Wide: lawn & play area" },
+  { ratio: "4/5", label: "Tall: shade tree & bed" },
+  { ratio: "3/2", label: "Wide: dry-stack wall" },
+  { ratio: "1/1", label: "Square: drip-fed planter" },
+  { ratio: "5/7", label: "Tall: water feature" },
+  { ratio: "16/9", label: "Wide: finished backyard at dusk" },
+];
+---
+
+<Layout title="Cedar &amp; Stone Landscape Co. — Central Oregon">
+  <!-- ===================== HERO ===================== -->
+  <section class="hero" id="top">
+    <ImageSlot label="Full-bleed photo: finished backyard at golden hour" />
+    <div class="scrim"></div>
+    <div class="hero-inner">
+      <div class="wrap">
+        <p class="eyebrow">Central Oregon · Since 2008</p>
+        <h1>Yards that look better every year.</h1>
+        <p class="subhead">
+          Patios, plantings, and irrigation built for the high desert — designed
+          around your weekends and made to hold up for decades.
+        </p>
+        <div class="cta-row">
+          <a class="btn" href="/contact/">Request an Estimate</a>
+          <a class="btn ghost on-dark" href="#portfolio">See recent work</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FEATURE GRID ===================== -->
+  <section class="section features" id="about">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Why homeowners hire us</p>
+        <h2>A yard you actually use, kept up by people you know.</h2>
+      </div>
+      <div class="feature-grid">
+        {
+          pillars.map((p) => (
+            <div class="pillar">
+              <div class="tile">{p.icon}</div>
+              <h3>{p.title}</h3>
+              <p>{p.body}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== SERVICE CARDS ===================== -->
+  <section class="section services" id="services">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">What we do</p>
+        <h2>Everything from the first plant to the last fall cleanup.</h2>
+        <p>Pick one service, or let us handle the whole yard start to finish.</p>
+      </div>
+      <div class="service-grid">
+        {
+          services.map((s) => (
+            <article class="s-card">
+              <div class="tile">{s.icon}</div>
+              <h3>{s.title}</h3>
+              <p>{s.body}</p>
+              <div class="foot">
+                <div class="price">
+                  <span class="lbl">{s.priceLabel}</span>
+                  <span class="val">{s.price}</span>
+                </div>
+                <a class="more" href="/contact/">
+                  Get a quote →
+                </a>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <BeforeAfter />
+
+  <!-- ===================== MASONRY GALLERY ===================== -->
+  <section class="section gallery" id="portfolio">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Recent work</p>
+        <h2>Yards we've built around central Oregon.</h2>
+        <p>Patios, plantings, walls, and water features from Bend to Sisters.</p>
+      </div>
+      <div class="masonry">
+        {gallery.map((g) => <ImageSlot ratio={g.ratio} label={g.label} />)}
+      </div>
+    </div>
+  </section>
+
+  <ProcessSteps />
+  <TestimonialCards />
+  <ContactMap />
+  <CtaBanner />
+</Layout>

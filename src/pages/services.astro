@@ -1,0 +1,165 @@
+---
+import Layout from "../layouts/Layout.astro";
+import ImageSlot from "../components/ImageSlot.astro";
+import ProcessSteps from "../components/ProcessSteps.astro";
+import CtaBanner from "../components/CtaBanner.astro";
+
+const services = [
+  {
+    icon: "🌿",
+    title: "Design & Install",
+    slot: "Designed bed filling in: layered plantings, fresh mulch",
+    body: "We start with how you actually use the yard, then draw a plan that fits it — room for the kids, the grill, and the dog. Plants go in so the yard fills in within a season or two instead of looking bare for years. You see a fixed price before we ever break ground.",
+    priceLabel: "From",
+    price: "$4,500",
+  },
+  {
+    icon: "🧱",
+    title: "Hardscape & Patios",
+    slot: "Dry-stack stone wall & paver patio with fire pit",
+    body: "Paver patios, dry-stack stone walls, fire pits, and walkways built on a proper base so they don't heave or crack. We pick stone that stays cool underfoot in August and shrugs off Oregon's freeze and thaw. Built to still look right twenty years from now.",
+    priceLabel: "From",
+    price: "$6,000",
+  },
+  {
+    icon: "💧",
+    title: "Irrigation",
+    slot: "Drip line at the base of plants / sprinkler head misting a lawn",
+    body: "Smart drip and sprinkler systems that water deep where roots actually grow, then skip the days it rains. Most homeowners watch their summer water bill drop the first July. We zone it by plant type so nothing's drowned and nothing's left thirsty.",
+    priceLabel: "From",
+    price: "$2,200",
+  },
+  {
+    icon: "🌱",
+    title: "Lawn Maintenance",
+    slot: "Freshly mowed, edged lawn with clean stripe lines",
+    body: "Mowing, edging, and feeding on a set schedule — handled by the same two-person crew every visit, so nothing slips through the cracks. We adjust through the season instead of running the same playbook in June and September. Your weekends stay yours.",
+    priceLabel: "Plans from",
+    price: "$140/mo",
+  },
+  {
+    icon: "🌳",
+    title: "Tree & Shrub Care",
+    slot: "Pruned shade tree, clean cuts, healthy full canopy",
+    body: "Pruning, shaping, and health checks that keep trees strong and full instead of hacked back into knuckles every spring. We know which high-desert species sulk and which thrive, and we time the cuts so they heal clean and come back fuller.",
+    priceLabel: "From",
+    price: "$300",
+  },
+  {
+    icon: "🍂",
+    title: "Seasonal Cleanups",
+    slot: "Fall cleanup: raked beds, cut-back perennials, tidy yard",
+    body: "A spring wake-up that gets beds and irrigation ready, and a fall cleanup that clears leaves, cuts back perennials, and tucks the yard in for winter. You skip the worst two weekends of yard work and start every season a step ahead.",
+    priceLabel: "From",
+    price: "$350",
+  },
+];
+
+const faqs = [
+  {
+    q: "How long does a typical install take?",
+    a: "Most residential yards take one to three weeks from the day we break ground, depending on size and how much hardscape is involved. A patio with a planting refresh might be a week; a full backyard with walls, irrigation, and a new lawn runs closer to three. You get a firm timeline with your estimate, and we clean the site at the end of every day.",
+    open: true,
+  },
+  {
+    q: "Do you offer maintenance plans?",
+    a: "Yes. Most homeowners we install for stay on a seasonal or monthly care plan, and the same crew that built the yard keeps it up — they already know every valve, line, and plant on the property. Plans start at $140/mo, and you can pause or cancel any time.",
+  },
+  {
+    q: "What areas do you serve?",
+    a: "Everything within about 20 miles of Bend — that covers Redmond, Sisters, Tumalo, and Sunriver. If you're a little outside that radius, call us anyway and we'll tell you honestly whether we can do right by you.",
+  },
+  {
+    q: "Are you licensed and insured?",
+    a: "Yes — licensed, bonded, and insured, Oregon CCB #198432. We're happy to send proof of insurance before any work starts, and every person on your property works for us, not a rotating cast of subcontractors.",
+  },
+  {
+    q: "How does pricing work?",
+    a: "We walk the property, talk through what you want, and send back a written plan with a fixed price — no hourly surprises and no change orders halfway through unless you ask for something new. Estimates are free, and the number we quote is the number you pay.",
+  },
+];
+---
+
+<Layout title="Services — Cedar &amp; Stone Landscape Co.">
+  <!-- ===================== PAGE HERO ===================== -->
+  <section class="page-hero" id="top">
+    <ImageSlot label="Wide photo: crew installing a paver patio, tools out, mid-build" />
+    <div class="scrim"></div>
+    <div class="hero-inner">
+      <div class="wrap">
+        <p class="eyebrow">What we do</p>
+        <h1>Everything from the first plant to the last fall cleanup.</h1>
+        <p class="subhead">
+          Six services, one crew. Hire us for the whole yard or just the part
+          that's been bugging you — the plan and the price are fixed before we
+          start.
+        </p>
+        <nav class="crumbs" aria-label="Breadcrumb">
+          <a href="/">Home</a>
+          <span class="sep">/</span>
+          <span class="here">Services</span>
+        </nav>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FEATURE ALTERNATING ===================== -->
+  <section class="section feature-alt" id="services">
+    <div class="wrap">
+      <div class="fa-rows">
+        {
+          services.map((s, i) => (
+            <div class={i % 2 === 1 ? "fa-row flip" : "fa-row"}>
+              <div class="fa-media">
+                <ImageSlot label={s.slot} />
+              </div>
+              <div class="fa-body">
+                <div class="tile">{s.icon}</div>
+                <h3>{s.title}</h3>
+                <p>{s.body}</p>
+                <div class="fa-meta">
+                  <div class="fa-price">
+                    <span class="lbl">{s.priceLabel}</span>
+                    <span class="val">{s.price}</span>
+                  </div>
+                  <a class="fa-link" href="/contact/">
+                    Get a quote →
+                  </a>
+                </div>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <ProcessSteps />
+
+  <!-- ===================== FAQ ACCORDION ===================== -->
+  <section class="section faq">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Good questions</p>
+        <h2>The things homeowners ask us first.</h2>
+      </div>
+      <div class="faq-list">
+        {
+          faqs.map((f) => (
+            <details class="faq-item" open={f.open}>
+              <summary>
+                {f.q}
+                <span class="mk" />
+              </summary>
+              <div class="ans">
+                <p>{f.a}</p>
+              </div>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <CtaBanner />
+</Layout>
