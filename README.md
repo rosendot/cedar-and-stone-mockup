@@ -3,7 +3,16 @@
 A five-page Astro site for **Cedar & Stone Landscape Co.**, a fictional
 landscaping company in Bend, Oregon. Built by Atlas Studio as a portfolio piece
 — this is a **concept build, not a client site**. No such business exists; the
-address, phone, CCB number, and testimonials are invented.
+address, phone, and testimonials are invented.
+
+The site footer says so on every page, and links back to atlasstudio.dev.
+
+> **No license numbers.** The design source carried an invented Oregon CCB
+> number in the footer and again in a Services FAQ answer. Both were removed —
+> an invented contractor license is checkable against a public state registry.
+> The copy names the regulator and offers to send the number on request
+> instead. Re-check with:
+> `grep -rioE "ccb|licen[sc]e #|#[0-9]{5,}" --include=*.html dist/`
 
 Ported from the Atlas Studio design system in Claude Design (project
 `5b78c5e0-3edd-4692-abc2-b097220f4fd1`) and rebuilt as a real deployable Astro
@@ -27,6 +36,15 @@ npm run build     # → dist/
 npm run preview   # serve the built output
 npm run deploy    # wrangler pages deploy dist
 ```
+
+## Deploying
+
+Cloudflare Pages. Connect this repo in the dashboard (**Workers & Pages** →
+**Create** → **Pages** → **Connect to Git**) with framework preset **Astro**,
+build command `npm run build`, output directory `dist` — then pushes to `main`
+auto-deploy.
+
+For a one-off CLI deploy instead: `wrangler login`, then `npm run deploy`.
 
 ## Pages
 
