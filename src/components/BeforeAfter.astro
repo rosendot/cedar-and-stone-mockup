@@ -1,6 +1,26 @@
 ---
 import ImageSlot from "./ImageSlot.astro";
-/** Draggable before/after comparison. Home + Portfolio. */
+/** Draggable before/after comparison. Home + Portfolio.
+ *
+ *  Both images must be the same yard from the same camera position — the
+ *  before is clipped over the after, so any shift in viewpoint shows up as a
+ *  jump while dragging. Defaults to the Bend backyard pair; pass a different
+ *  set to feature another project. */
+interface Props {
+  beforeSrc?: string;
+  beforeAlt?: string;
+  afterSrc?: string;
+  afterAlt?: string;
+}
+
+const {
+  beforeSrc = "/photos/backyard-before.webp",
+  beforeAlt =
+    "The same backyard before work — patchy dead lawn, weeds, overgrown junipers along the fence, and a pile of loose rock",
+  afterSrc = "/photos/backyard-after.webp",
+  afterAlt =
+    "The finished backyard — flagstone patio, basalt retaining wall, fresh lawn, and lavender and boxwood beds along a new cedar fence",
+} = Astro.props;
 ---
 
 <section class="section beforeafter">
@@ -14,8 +34,8 @@ import ImageSlot from "./ImageSlot.astro";
       </p>
     </div>
     <div class="ba-stage" id="baStage">
-      <ImageSlot class="ba-after" label="AFTER — finished yard" />
-      <ImageSlot class="ba-before" id="baBefore" label="BEFORE — overgrown yard" />
+      <ImageSlot class="ba-after" src={afterSrc} alt={afterAlt} />
+      <ImageSlot class="ba-before" id="baBefore" src={beforeSrc} alt={beforeAlt} />
       <span class="ba-tag b">Before</span>
       <span class="ba-tag a">After</span>
       <div class="ba-divider" id="baDivider"></div>

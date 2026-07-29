@@ -71,22 +71,70 @@ const services = [
 ];
 
 const gallery = [
-  { ratio: "4/5", label: "Tall: backyard plantings" },
-  { ratio: "3/2", label: "Wide: paver patio & fire pit" },
-  { ratio: "1/1", label: "Square: stone steps" },
-  { ratio: "16/10", label: "Wide: lawn & play area" },
-  { ratio: "4/5", label: "Tall: shade tree & bed" },
-  { ratio: "3/2", label: "Wide: dry-stack wall" },
-  { ratio: "1/1", label: "Square: drip-fed planter" },
-  { ratio: "5/7", label: "Tall: water feature" },
-  { ratio: "16/9", label: "Wide: finished backyard at dusk" },
+  {
+    ratio: "4/5",
+    label: "Tall: backyard plantings",
+    src: "/photos/plantings-tall.webp",
+    alt: "A layered perennial bed — lavender in bloom, blue fescue, boxwood, and Russian sage over dark mulch, edged in steel against the lawn",
+  },
+  {
+    ratio: "1264/848",
+    label: "Wide: flagstone patio",
+    src: "/photos/patio-flagstone.webp",
+    alt: "A finished flagstone patio behind a cedar-sided home, with a table and chairs, a covered grill, and lawn running to the back fence",
+  },
+  {
+    ratio: "1/1",
+    label: "Square: bubbling rock fountain",
+    src: "/photos/fountain-rock.webp",
+    alt: "A drilled basalt column fountain running over river rock, ringed by ornamental grasses and low shrubs",
+  },
+  {
+    ratio: "1312/816",
+    label: "Wide: new sod lawn",
+    src: "/photos/sod-lawn.webp",
+    alt: "A freshly laid sod lawn in a front yard, seams between the rolls still visible, edged against a concrete walkway",
+  },
+  {
+    ratio: "4/5",
+    label: "Tall: front walkway",
+    src: "/photos/walkway-front-door.webp",
+    alt: "A flagstone walkway curving to the front door of a green-sided house, bordered by bark mulch and low shrubs",
+  },
+  {
+    ratio: "1264/848",
+    label: "Wide: crew setting pavers",
+    src: "/photos/crew-paver-install.webp",
+    alt: "Two crew members installing a paver patio — one setting a paver on the bedding course, the other carrying stone from the pallet",
+  },
+  {
+    ratio: "1/1",
+    label: "Square: drip irrigation",
+    src: "/photos/drip-irrigation.webp",
+    alt: "Drip irrigation line running through a mulched planting bed, with an emitter watering the base of a young lavender",
+  },
+  {
+    ratio: "864/1216",
+    label: "Tall: cedar privacy fence",
+    src: "/photos/cedar-fence.webp",
+    alt: "A newly built cedar privacy fence running along a property line, with a narrow planting bed and lawn beside it",
+  },
+  {
+    ratio: "16/9",
+    label: "Wide: path lighting at dusk",
+    src: "/photos/dusk-path-lighting.webp",
+    alt: "A front walkway at dusk lit by low landscape path lights, with an uplit pine and warm light in the windows",
+  },
 ];
 ---
 
 <Layout title="Cedar &amp; Stone Landscape Co. — Central Oregon">
   <!-- ===================== HERO ===================== -->
   <section class="hero" id="top">
-    <ImageSlot label="Full-bleed photo: finished backyard at golden hour" />
+    <ImageSlot
+      src="/photos/hero-backyard.webp"
+      alt="A dry-laid flagstone patio edged with basalt retaining walls, lavender and ornamental grasses backlit by low evening sun, with ponderosa pines and the Cascade foothills beyond"
+    />
     <div class="scrim"></div>
     <div class="hero-inner">
       <div class="wrap">
@@ -167,7 +215,11 @@ const gallery = [
         <p>Patios, plantings, walls, and water features from Bend to Sisters.</p>
       </div>
       <div class="masonry">
-        {gallery.map((g) => <ImageSlot ratio={g.ratio} label={g.label} />)}
+        {
+          gallery.map((g) => (
+            <ImageSlot ratio={g.ratio} label={g.label} src={g.src} alt={g.alt} />
+          ))
+        }
       </div>
     </div>
   </section>
