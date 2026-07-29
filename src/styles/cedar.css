@@ -398,7 +398,10 @@ a { color: inherit; }
 /* ===== PAGE HERO (compact) ===== */
 .page-hero {
   position: relative;
-  min-height: 56vh;
+  /* 56vh alone turns into a 4.8:1 letterbox on an ultrawide, which crops most
+     of a 16:9 photo away. Grow with viewport width too, so the slot stays
+     closer to the image's own shape on very wide screens. */
+  min-height: max(56vh, min(34vw, 1000px));
   display: flex; align-items: flex-end;
   overflow: hidden;
 }
@@ -665,6 +668,11 @@ a { color: inherit; }
   object-fit: cover;
 }
 .img-slot.contain > img { object-fit: contain; }
+/* Heroes are far wider than the 16:9 photos that fill them, so cover() crops
+   height. Anchor above centre — subjects and horizons sit in the upper part of
+   the frame, and a centred crop cuts heads off on wide screens. */
+.hero .img-slot > img,
+.page-hero .img-slot > img { object-position: center 28%; }
 /* Caption describing the photo that belongs here. Hidden once a real image
    is supplied. */
 .img-slot .slot-label {

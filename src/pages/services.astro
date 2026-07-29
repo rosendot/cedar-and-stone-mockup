@@ -9,6 +9,8 @@ const services = [
     icon: "🌿",
     title: "Design & Install",
     slot: "Designed bed filling in: layered plantings, fresh mulch",
+    src: "/photos/svc-design-install.webp",
+    alt: "A newly planted front-yard bed filling in — young shrubs, perennials and grasses spaced out over fresh dark mulch, plant tags still in the ground",
     body: "We start with how you actually use the yard, then draw a plan that fits it — room for the kids, the grill, and the dog. Plants go in so the yard fills in within a season or two instead of looking bare for years. You see a fixed price before we ever break ground.",
     priceLabel: "From",
     price: "$4,500",
@@ -17,6 +19,8 @@ const services = [
     icon: "🧱",
     title: "Hardscape & Patios",
     slot: "Dry-stack stone wall & paver patio with fire pit",
+    src: "/photos/svc-hardscape.webp",
+    alt: "A paver patio with a dry-stacked basalt retaining wall along one edge and a round stone fire pit, chairs set around it",
     body: "Paver patios, dry-stack stone walls, fire pits, and walkways built on a proper base so they don't heave or crack. We pick stone that stays cool underfoot in August and shrugs off Oregon's freeze and thaw. Built to still look right twenty years from now.",
     priceLabel: "From",
     price: "$6,000",
@@ -25,6 +29,8 @@ const services = [
     icon: "💧",
     title: "Irrigation",
     slot: "Drip line at the base of plants / sprinkler head misting a lawn",
+    src: "/photos/svc-irrigation.webp",
+    alt: "A pop-up sprinkler head spraying an arc of water across a green backyard lawn, the grass visibly wet where it has passed",
     body: "Smart drip and sprinkler systems that water deep where roots actually grow, then skip the days it rains. Most homeowners watch their summer water bill drop the first July. We zone it by plant type so nothing's drowned and nothing's left thirsty.",
     priceLabel: "From",
     price: "$2,200",
@@ -33,6 +39,8 @@ const services = [
     icon: "🌱",
     title: "Lawn Maintenance",
     slot: "Freshly mowed, edged lawn with clean stripe lines",
+    src: "/photos/svc-lawn-care.webp",
+    alt: "A freshly mown front lawn with clean alternating mower stripes, crisply edged along a concrete walkway",
     body: "Mowing, edging, and feeding on a set schedule — handled by the same two-person crew every visit, so nothing slips through the cracks. We adjust through the season instead of running the same playbook in June and September. Your weekends stay yours.",
     priceLabel: "Plans from",
     price: "$140/mo",
@@ -41,6 +49,8 @@ const services = [
     icon: "🌳",
     title: "Tree & Shrub Care",
     slot: "Pruned shade tree, clean cuts, healthy full canopy",
+    src: "/photos/svc-tree-care.webp",
+    alt: "A mature shade tree with a full, evenly shaped canopy standing in a mulched ring on a maintained lawn",
     body: "Pruning, shaping, and health checks that keep trees strong and full instead of hacked back into knuckles every spring. We know which high-desert species sulk and which thrive, and we time the cuts so they heal clean and come back fuller.",
     priceLabel: "From",
     price: "$300",
@@ -49,6 +59,8 @@ const services = [
     icon: "🍂",
     title: "Seasonal Cleanups",
     slot: "Fall cleanup: raked beds, cut-back perennials, tidy yard",
+    src: "/photos/svc-seasonal-cleanup.webp",
+    alt: "A backyard after a fall cleanup — beds raked and re-mulched, perennials cut back, leaves bagged, bare branches overhead",
     body: "A spring wake-up that gets beds and irrigation ready, and a fall cleanup that clears leaves, cuts back perennials, and tucks the yard in for winter. You skip the worst two weekends of yard work and start every season a step ahead.",
     priceLabel: "From",
     price: "$350",
@@ -83,7 +95,10 @@ const faqs = [
 <Layout title="Services — Cedar &amp; Stone Landscape Co.">
   <!-- ===================== PAGE HERO ===================== -->
   <section class="page-hero" id="top">
-    <ImageSlot label="Wide photo: crew installing a paver patio, tools out, mid-build" />
+    <ImageSlot
+      src="/photos/svc-hero-jobsite.webp"
+      alt="A crew mid-project on a residential install — pallets of pavers and base gravel in the driveway, tools out, a patio taking shape, truck and trailer at the curb"
+    />
     <div class="scrim"></div>
     <div class="hero-inner">
       <div class="wrap">
@@ -111,7 +126,7 @@ const faqs = [
           services.map((s, i) => (
             <div class={i % 2 === 1 ? "fa-row flip" : "fa-row"}>
               <div class="fa-media">
-                <ImageSlot label={s.slot} />
+                <ImageSlot label={s.slot} src={s.src} alt={s.alt} />
               </div>
               <div class="fa-body">
                 <div class="tile">{s.icon}</div>
