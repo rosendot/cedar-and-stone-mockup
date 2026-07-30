@@ -294,31 +294,17 @@ a { color: inherit; }
 .map-box {
   position: relative; border-radius: var(--radius-xl); overflow: hidden;
   border: 1px solid var(--color-border); min-height: 420px;
-  background:
-    repeating-linear-gradient(0deg, rgba(40,54,24,.05) 0 1px, transparent 1px 56px),
-    repeating-linear-gradient(90deg, rgba(40,54,24,.05) 0 1px, transparent 1px 56px),
-    linear-gradient(135deg, #e9e2d4, #ded3c0);
+  background: var(--color-sand, #e9e2d4);
 }
-.map-box .roads { position: absolute; inset: 0; }
-.map-box .road { position: absolute; background: var(--color-white); opacity: .85; }
-.map-box .radius {
-  position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
-  width: 60%; aspect-ratio: 1; border-radius: 50%;
-  border: 2px dashed var(--color-primary);
-  background: rgba(56,102,65,.10);
-}
-.map-box .pin {
-  position: absolute; top: 50%; left: 50%; transform: translate(-50%,-100%);
-  width: 20px; height: 20px; border-radius: 50% 50% 50% 0;
-  background: var(--color-primary); rotate: -45deg; box-shadow: var(--shadow-md);
-}
-.map-box .pin::after { content: ""; position: absolute; inset: 6px; background: var(--color-cream); border-radius: 50%; }
+.map-box .map-frame { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; display: block; }
 .map-box .maplbl {
-  position: absolute; left: 16px; bottom: 16px;
+  position: absolute; left: 16px; bottom: 16px; z-index: 1;
   font-family: var(--font-body); font-size: 11px; letter-spacing: var(--tracking-normal);
-  text-transform: uppercase; color: var(--color-text-light);
-  background: rgba(255,255,255,.8); padding: 5px 10px; border-radius: var(--radius-full);
+  text-transform: uppercase; color: var(--color-text-light); text-decoration: none;
+  background: rgba(255,255,255,.88); padding: 5px 10px; border-radius: var(--radius-full);
+  box-shadow: var(--shadow-md);
 }
+.map-box .maplbl:hover { color: var(--color-primary); background: var(--color-white); }
 .contact-card { display: flex; flex-direction: column; justify-content: center; }
 .contact-card h3 { font-family: var(--font-heading); font-size: var(--text-3xl); color: var(--color-dark); margin: 0 0 var(--space-6); }
 .contact-row { display: flex; gap: var(--space-4); padding: var(--space-4) 0; border-bottom: 1px solid var(--color-border); }

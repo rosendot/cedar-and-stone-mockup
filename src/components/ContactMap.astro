@@ -1,6 +1,9 @@
 ---
-/** Service-area map (CSS-drawn, no Maps embed) beside the contact details.
- *  Home + Contact. */
+/** Google Maps embed beside the contact details. Home + Contact.
+ *  Keyless embed form (`?q=...&output=embed`) — no Maps API key required. */
+const address = "61287 S Hwy 97, Suite 4, Bend, OR 97702";
+const mapSrc = `https://www.google.com/maps?q=${encodeURIComponent(address)}&z=11&output=embed`;
+const mapLink = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`;
 ---
 
 <section class="section contact" id="contact">
@@ -11,16 +14,20 @@
       <p>Bend · Redmond · Sisters · Tumalo · Sunriver</p>
     </div>
     <div class="contact-grid">
-      <div class="map-box" aria-label="Service area map">
-        <div class="roads">
-          <div class="road" style="top:32%; left:0; right:0; height:6px;"></div>
-          <div class="road" style="top:0; bottom:0; left:58%; width:6px;"></div>
-          <div class="road" style="top:64%; left:0; right:0; height:4px; opacity:.6;"></div>
-          <div class="road" style="top:0; bottom:0; left:24%; width:4px; opacity:.6;"></div>
-        </div>
-        <div class="radius"></div>
-        <div class="pin"></div>
-        <span class="maplbl">Service area · 20-mile radius of Bend</span>
+      <div class="map-box">
+        <iframe
+          class="map-frame"
+          src={mapSrc}
+          title="Map of the Cedar & Stone office in Bend, Oregon"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          allowfullscreen></iframe>
+        <a
+          class="maplbl"
+          href={mapLink}
+          target="_blank"
+          rel="noopener noreferrer">Open in Google Maps</a
+        >
       </div>
       <div class="contact-card">
         <h3>Stop by or give us a call</h3>
