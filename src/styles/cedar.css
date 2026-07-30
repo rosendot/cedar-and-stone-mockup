@@ -24,7 +24,6 @@
   --color-white:        #ffffff;
   --color-sage:         #6b7a52;   /* muted high-desert sage, used sparingly */
 
-  --tile-tint: rgba(56, 102, 65, 0.10);
   --header-h: 84px;
 }
 
@@ -180,11 +179,6 @@ a { color: inherit; }
   gap: var(--space-8); max-width: var(--max-w-lg); margin: 0 auto;
 }
 .pillar { text-align: left; }
-.pillar .tile {
-  width: 52px; height: 52px; border-radius: var(--radius-lg);
-  background: var(--tile-tint); display: grid; place-items: center;
-  font-size: 24px; margin-bottom: var(--space-5);
-}
 .pillar h3 {
   font-family: var(--font-heading); font-size: var(--text-2xl);
   color: var(--color-dark); margin: 0 0 var(--space-3); font-weight: 700;
@@ -204,11 +198,6 @@ a { color: inherit; }
   transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
 }
 .s-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); border-color: var(--color-primary); }
-.s-card .tile {
-  width: 50px; height: 50px; border-radius: var(--radius-lg);
-  background: var(--tile-tint); display: grid; place-items: center;
-  font-size: 24px; margin-bottom: var(--space-5);
-}
 .s-card h3 { font-family: var(--font-heading); font-size: var(--text-2xl); color: var(--color-dark); margin: 0 0 var(--space-3); font-weight: 700; }
 .s-card p { font-size: var(--text-base); line-height: var(--leading-loose); color: var(--color-text-light); margin: 0 0 var(--space-6); flex: 1; }
 .s-card .foot { display: flex; align-items: center; justify-content: space-between; gap: var(--space-4); }
@@ -459,11 +448,6 @@ a { color: inherit; }
   text-transform: uppercase; letter-spacing: var(--tracking-normal);
   color: var(--color-cream); background: rgba(40,54,24,.78);
   padding: 6px 14px; border-radius: var(--radius-full); backdrop-filter: blur(2px);
-}
-.fa-body .tile {
-  width: 52px; height: 52px; border-radius: var(--radius-lg);
-  background: var(--tile-tint); display: grid; place-items: center;
-  font-size: 24px; margin-bottom: var(--space-5);
 }
 .fa-body h3 { font-family: var(--font-heading); font-size: clamp(1.6rem, 2.6vw, var(--text-3xl)); color: var(--color-dark); margin: 0 0 var(--space-4); font-weight: 700; line-height: var(--leading-snug); }
 .fa-body p { font-size: var(--text-lg); line-height: var(--leading-loose); color: var(--color-text-light); margin: 0 0 var(--space-5); }

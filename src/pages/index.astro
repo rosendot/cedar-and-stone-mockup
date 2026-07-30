@@ -9,17 +9,14 @@ import CtaBanner from "../components/CtaBanner.astro";
 
 const pillars = [
   {
-    icon: "🌿",
     title: "Designed for how you live",
     body: "We start with your weekends, not a plant catalog. Room for the kids, the grill, and the dog — laid out so it works.",
   },
   {
-    icon: "🪨",
     title: "Built to last decades",
     body: "Proper base depth, real drainage, and plants suited to the high desert. It holds up through freeze, thaw, and August heat.",
   },
   {
-    icon: "🤝",
     title: "Maintained by the same crew",
     body: "The people who built your yard are the ones who keep it up. They know every line, valve, and plant on the property.",
   },
@@ -27,42 +24,36 @@ const pillars = [
 
 const services = [
   {
-    icon: "🌿",
     title: "Design & Install",
     body: "We plan the whole yard around how you use it, then plant it so it fills in right instead of looking bare for three years.",
     priceLabel: "From",
     price: "$4,500",
   },
   {
-    icon: "🧱",
     title: "Hardscape & Patios",
     body: "Paver patios, dry-stack stone walls, and fire pits that stay cool underfoot and shrug off Oregon freeze-thaw.",
     priceLabel: "From",
     price: "$6,000",
   },
   {
-    icon: "💧",
     title: "Irrigation",
     body: "Smart drip and sprinkler systems that water deep, skip the rainy days, and cut your summer water bill.",
     priceLabel: "From",
     price: "$2,200",
   },
   {
-    icon: "🌱",
     title: "Lawn Maintenance",
     body: "Mowing, edging, and feeding on a set schedule — by the same two people every visit, so nothing gets missed.",
     priceLabel: "Plans from",
     price: "$140/mo",
   },
   {
-    icon: "🌳",
     title: "Tree & Shrub Care",
     body: "Pruning, shaping, and health checks so your trees grow strong and full instead of getting hacked back every year.",
     priceLabel: "From",
     price: "$300",
   },
   {
-    icon: "🍂",
     title: "Seasonal Cleanups",
     body: "Spring wake-up and fall leaf-and-bed cleanup, so the yard's ready for the next season without you lifting a rake.",
     priceLabel: "From",
@@ -163,7 +154,6 @@ const gallery = [
         {
           pillars.map((p) => (
             <div class="pillar">
-              <div class="tile">{p.icon}</div>
               <h3>{p.title}</h3>
               <p>{p.body}</p>
             </div>
@@ -185,7 +175,6 @@ const gallery = [
         {
           services.map((s) => (
             <article class="s-card">
-              <div class="tile">{s.icon}</div>
               <h3>{s.title}</h3>
               <p>{s.body}</p>
               <div class="foot">
