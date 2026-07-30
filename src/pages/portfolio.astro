@@ -6,25 +6,112 @@ import CtaBanner from "../components/CtaBanner.astro";
 import { testimonials } from "../data/testimonials";
 
 const projects = [
-  { ratio: "3/2", cap: "Flagstone patio with built-in seating", full: "Flagstone patio with built-in seating — Bend", slot: "Flagstone patio & seating" },
-  { ratio: "4/5", cap: "Plantings, second summer", full: "Backyard plantings filling in their second summer — Bend", slot: "Backyard plantings" },
-  { ratio: "1/1", cap: "Dry-stack basalt wall", full: "Dry-stack basalt retaining wall — Tumalo", slot: "Dry-stack stone wall" },
-  { ratio: "5/7", cap: "Bubbling-rock water feature", full: "Bubbling-rock water feature in a native bed — Sisters", slot: "Water feature" },
-  { ratio: "3/2", cap: "Paver fire pit at dusk", full: "Paver fire pit lit up at dusk — Redmond", slot: "Fire pit at dusk" },
-  { ratio: "16/10", cap: "New lawn & play area", full: "Fresh sod lawn and play area for the kids — Bend", slot: "Lawn & play area" },
-  { ratio: "4/5", cap: "Stone steps up the slope", full: "Stone steps climbing a sloped side yard — Bend", slot: "Stone steps on a slope" },
-  { ratio: "1/1", cap: "Drip-fed raised planters", full: "Drip-fed raised planters along a fence line — Redmond", slot: "Raised planters" },
-  { ratio: "16/9", cap: "Cedar pergola & patio", full: "Cedar pergola over a paver patio — Sisters", slot: "Pergola over patio" },
-  { ratio: "3/2", cap: "Boulders & native grasses", full: "Boulder accents in a native grass bed — Tumalo", slot: "Boulder & native grasses" },
-  { ratio: "4/5", cap: "Front-yard xeriscape", full: "Low-water front-yard xeriscape — Bend", slot: "Front-yard xeriscape" },
-  { ratio: "16/9", cap: "Built for evenings outside", full: "Backyard lit for evenings outside — Redmond", slot: "Evening-lit backyard" },
+  {
+    ratio: "1264/848",
+    cap: "Flagstone patio with built-in seating",
+    full: "Flagstone patio with built-in seating — Bend",
+    slot: "Flagstone patio & seating",
+    src: "/photos/pf-01-patio-seating.webp",
+    alt: "A flagstone patio with a curved stone seating wall and cushions, opening onto a lawn",
+  },
+  {
+    ratio: "928/1152",
+    cap: "Plantings, second summer",
+    full: "Backyard plantings filling in their second summer — Bend",
+    slot: "Backyard plantings",
+    src: "/photos/pf-02-plantings-second-summer.webp",
+    alt: "A perennial bed in its second summer — coneflowers, catmint and ornamental grasses grown together with no bare gaps",
+  },
+  {
+    ratio: "1/1",
+    cap: "Dry-stack basalt wall",
+    full: "Dry-stack basalt retaining wall — Tumalo",
+    slot: "Dry-stack stone wall",
+    src: "/photos/pf-03-drystack-wall.webp",
+    alt: "A dry-stacked basalt retaining wall curving along a slope, ornamental grasses planted above it",
+  },
+  {
+    ratio: "864/1216",
+    cap: "Bubbling-rock water feature",
+    full: "Bubbling-rock water feature in a native bed — Sisters",
+    slot: "Water feature",
+    src: "/photos/pf-04-water-feature.webp",
+    alt: "A drilled boulder fountain welling water over river rock, set in a bed of native grasses and sagebrush",
+  },
+  {
+    ratio: "1264/848",
+    cap: "Paver fire pit at dusk",
+    full: "Paver fire pit lit up at dusk — Redmond",
+    slot: "Fire pit at dusk",
+    src: "/photos/pf-05-firepit-dusk.webp",
+    alt: "A circular paver fire pit burning at dusk, four chairs around it under a deep blue sky",
+  },
+  {
+    ratio: "1312/816",
+    cap: "New lawn & play area",
+    full: "Fresh sod lawn and play area for the kids — Bend",
+    slot: "Lawn & play area",
+    src: "/photos/pf-06-lawn-play.webp",
+    alt: "A new backyard lawn with a wooden playset and sandbox against the back fence",
+  },
+  {
+    ratio: "928/1152",
+    cap: "Stone steps up the slope",
+    full: "Stone steps climbing a sloped side yard — Bend",
+    slot: "Stone steps on a slope",
+    src: "/photos/pf-07-stone-steps.webp",
+    alt: "Broad flagstone steps climbing a planted side-yard slope, low stone edging on both sides",
+  },
+  {
+    ratio: "1/1",
+    cap: "Drip-fed raised planters",
+    full: "Drip-fed raised planters along a fence line — Redmond",
+    slot: "Raised planters",
+    src: "/photos/pf-08-raised-planters.webp",
+    alt: "Raised cedar planter boxes of herbs and vegetables along a fence, drip tubing running across the soil",
+  },
+  {
+    ratio: "1376/768",
+    cap: "Cedar pergola & patio",
+    full: "Cedar pergola over a paver patio — Sisters",
+    slot: "Pergola over patio",
+    src: "/photos/pf-09-pergola.webp",
+    alt: "A cedar pergola over a paver patio with a dining table beneath it and a vine starting up one post",
+  },
+  {
+    ratio: "1264/848",
+    cap: "Boulders & native grasses",
+    full: "Boulder accents in a native grass bed — Tumalo",
+    slot: "Boulder & native grasses",
+    src: "/photos/pf-10-boulders-grasses.webp",
+    alt: "Basalt boulders set among blue bunch grasses and gravel mulch along a rural property edge",
+  },
+  {
+    ratio: "928/1152",
+    cap: "Front-yard xeriscape",
+    full: "Low-water front-yard xeriscape — Bend",
+    slot: "Front-yard xeriscape",
+    src: "/photos/pf-11-xeriscape.webp",
+    alt: "A front yard converted to low-water planting — gravel ground, drought-tolerant drifts, and a flagstone path to the door",
+  },
+  {
+    ratio: "1376/768",
+    cap: "Built for evenings outside",
+    full: "Backyard lit for evenings outside — Redmond",
+    slot: "Evening-lit backyard",
+    src: "/photos/pf-12-evening-lit.webp",
+    alt: "A backyard patio at night under strung café lights, with soft uplighting in the surrounding beds",
+  },
 ];
 ---
 
 <Layout title="Portfolio — Cedar &amp; Stone Landscape Co.">
   <!-- ===================== PAGE HERO ===================== -->
   <section class="page-hero" id="top">
-    <ImageSlot label="Wide photo: finished backyard with patio, fire pit, and plantings at golden hour" />
+    <ImageSlot
+      src="/photos/pf-hero-golden.webp"
+      alt="A finished backyard at golden hour — stone fire pit ringed by chairs, mature lavender and grasses along the fence, and a wide paver patio"
+    />
     <div class="scrim"></div>
     <div class="hero-inner">
       <div class="wrap">
@@ -54,8 +141,8 @@ const projects = [
       <div class="lb-grid" id="lbGrid">
         {
           projects.map((p) => (
-            <div class="lb-thumb" data-cap={p.full}>
-              <ImageSlot ratio={p.ratio} label={p.slot} />
+            <div class="lb-thumb" data-cap={p.full} data-ratio={p.ratio}>
+              <ImageSlot ratio={p.ratio} label={p.slot} src={p.src} alt={p.alt} />
               <span class="cap">{p.cap}</span>
             </div>
           ))
@@ -106,8 +193,8 @@ const projects = [
       <button class="lb-close" id="lbClose" aria-label="Close">×</button>
       <button class="lb-prev" id="lbPrev" aria-label="Previous">‹</button>
       <button class="lb-next" id="lbNext" aria-label="Next">›</button>
-      <div class="img-slot contain" id="lbView">
-        <span class="slot-label" id="lbSlotLabel"></span>
+      <div class="img-slot contain has-image" id="lbView">
+        <img id="lbImg" src="" alt="" />
       </div>
       <div class="lb-cap" id="lbCap"></div>
     </div>
@@ -116,24 +203,35 @@ const projects = [
 
 <script>
   // ── Lightbox ───────────────────────────────────────────────────────────
-  // With no real photos yet the overlay shows the same descriptive caption the
-  // thumbnail carries. Once ImageSlot gets a `src`, swap the placeholder for
-  // an <img> here too.
+  // The overlay mirrors whichever thumbnail was clicked: same photo, full size,
+  // with the long caption underneath.
   const thumbs = Array.from(
     document.querySelectorAll<HTMLElement>("#lbGrid .lb-thumb"),
   );
   const overlay = document.getElementById("lightbox");
-  const slotLabel = document.getElementById("lbSlotLabel");
+  const view = document.getElementById("lbView");
+  const lbImg = document.getElementById("lbImg") as HTMLImageElement | null;
   const cap = document.getElementById("lbCap");
 
-  if (thumbs.length && overlay && cap && slotLabel) {
+  if (thumbs.length && overlay && cap && view && lbImg) {
     let idx = 0;
 
     const showAt = (i: number) => {
       idx = (i + thumbs.length) % thumbs.length;
-      const text = thumbs[idx].getAttribute("data-cap") ?? "";
+      const thumb = thumbs[idx];
+      const text = thumb.getAttribute("data-cap") ?? "";
+      const src = thumb.querySelector("img");
       cap.textContent = text;
-      slotLabel.textContent = text;
+      if (src) {
+        lbImg.src = src.getAttribute("src") ?? "";
+        lbImg.alt = src.getAttribute("alt") ?? "";
+        // Match the frame to this photo's shape — they range 1:1 to 16:9, so a
+        // fixed ratio would letterbox most of them. Read it from the markup
+        // rather than naturalWidth: thumbnails load lazily, so an off-screen
+        // image still reports 0 when its tile is clicked after a fast scroll.
+        const ratio = thumb.getAttribute("data-ratio");
+        if (ratio) view.style.aspectRatio = ratio.replace("/", " / ");
+      }
     };
     const open = (i: number) => {
       showAt(i);

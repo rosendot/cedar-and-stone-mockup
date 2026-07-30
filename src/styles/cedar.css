@@ -526,7 +526,11 @@ a { color: inherit; }
 }
 .lightbox-overlay.open { display: flex; }
 .lightbox-overlay .frame { position: relative; max-width: 88vw; max-height: 86vh; }
-.lightbox-overlay .img-slot { display: block; width: 70vw; max-width: 1000px; aspect-ratio: 3/2; border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); }
+/* aspect-ratio is set per-photo in JS — the gallery runs 1:1 through 16:9, so a
+   fixed frame would letterbox most of them. max-height keeps a tall portrait
+   inside the viewport instead of pushing the caption off-screen. */
+.lightbox-overlay .img-slot { display: block; width: 70vw; max-width: 1000px; max-height: 78vh; aspect-ratio: 3/2; border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); }
+.lightbox-overlay .img-slot > img { position: static; width: 100%; height: 100%; object-fit: contain; }
 .lightbox-overlay .lb-cap { text-align: center; color: rgba(255,255,255,.85); font-size: var(--text-base); margin-top: var(--space-4); }
 .lb-close, .lb-prev, .lb-next {
   position: absolute; z-index: 3; background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.25);
