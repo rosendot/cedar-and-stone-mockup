@@ -74,6 +74,46 @@ There are **40 slots** across the five pages. To drop in a real photo, pass
 The placeholder styling falls away automatically once `src` is set. Put files
 in `public/` and reference them by absolute path.
 
+## Brand assets
+
+The mark is a dry-stack retaining wall cresting into planting, with one sienna
+stone. It reads as the seam between hardscape and planting — the two halves of
+what the company sells.
+
+The **site logo is inline SVG**, not an image:
+[`Logo.astro`](src/components/Logo.astro) draws the ring version with
+`currentColor`, so one component serves the header over hero photography, the
+scrolled header, and the footer on `--color-dark` without shipping separate
+light/dark files. The sienna stone is the only element that doesn't inherit.
+
+Raster assets are generated — **never hand-edit them**. Run
+`node .brand/build-assets.mjs` from the repo root after changing the mark; it
+rewrites everything below plus the two vector masters in `.brand/`.
+
+| File | Size | Used by |
+| --- | --- | --- |
+| `public/favicon.svg` | vector | primary tab icon |
+| `public/favicon-32.webp` | 32×32 | tab icon fallback |
+| `public/icon-192.webp` | 192×192 | Android / PWA, larger favicon |
+| `public/icon-512.webp` | 512×512 | WebP master |
+| `public/icon-512.png` | 512×512 | PNG master, for anywhere WebP isn't safe |
+| `public/apple-touch-icon.png` | 180×180 | iOS home screen |
+| `public/og-image.png` | 1200×630 | `og:image` / `twitter:image` |
+| `public/og-image.webp` | 1200×630 | WebP copy of the share card |
+
+Notes:
+
+- **Two drawings, not one.** The icons at 32px and below use a simplified mark
+  (rounded-square badge, two courses, heavier forms); everything larger uses the
+  three-course disc. The full ring version muddies below ~24px.
+- **WebP on the web, PNG everywhere else** — email clients (Outlook especially)
+  don't render WebP, and the Apple touch icon wants PNG.
+- The share card carries a **`CONCEPT BUILD`** tag. Cedar & Stone is a fictional
+  business; the card is the one asset that travels off-site on its own, so the
+  disclosure rides along with it.
+- Favicons cache hard. After regenerating, check in a private window; if a stale
+  icon persists, add `?v=N` to the `<link rel="icon">` hrefs.
+
 ## Interactive pieces
 
 All vanilla JS, no dependencies:

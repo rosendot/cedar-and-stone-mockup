@@ -95,15 +95,10 @@ a { color: inherit; }
 }
 .site-header .wrap { display: flex; align-items: center; justify-content: space-between; width: 100%; }
 .brand { display: flex; align-items: center; gap: var(--space-3); text-decoration: none; }
-.brand .mark {
-  width: 38px; height: 38px; flex: none;
-  border-radius: var(--radius-sm);
-  background: var(--color-primary);
-  display: grid; place-items: center;
-  color: var(--color-cream); font-family: var(--font-heading);
-  font-size: 1.05rem; font-weight: 700;
-  border: 1px solid rgba(255,255,255,.15);
-}
+/* The mark is an inline SVG using currentColor, so it re-themes by `color`.
+   Header sits on hero photography and the footer on --color-dark, so cream
+   carries the form in both; the sienna stone is set inside the component. */
+.brand .mark { color: var(--color-cream); }
 .brand .name {
   font-family: var(--font-heading);
   font-size: var(--text-2xl); font-weight: 700;

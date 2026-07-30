@@ -1,0 +1,99 @@
+---
+/** Cedar & Stone mark — a dry-stack retaining wall cresting into planting,
+ *  with one sienna stone. Redrawn as vector from the generated concept sheet.
+ *
+ *  Inline rather than an <img> so the ring and stones inherit theme colour:
+ *  the header sits on hero photography, the footer on near-black, and the
+ *  scrolled header on --color-dark. `currentColor` carries the ring, canopy,
+ *  and stone fill, so setting `color` on a parent re-themes the whole mark.
+ *
+ *  Geometry notes, so future edits don't fight the circle:
+ *   - Courses are plain rects clipped to r=17.4, but each course is also
+ *     *tapered* to the chord width at its own lower edge. Without the taper
+ *     the clip slices the lower courses into slivers.
+ *   - The canopy stops at y=23.0, leaving a ~1.6 unit cream gap above the
+ *     first course. Butt them together and the two shapes merge into one
+ *     blob, since they share a fill. */
+interface Props {
+  /** Rendered px box. 38 in the header, 44 in the footer. */
+  size?: number;
+  /** Decorative when a text wordmark sits beside it (the usual case). */
+  decorative?: boolean;
+  class?: string;
+}
+const { size = 38, decorative = true, class: className } = Astro.props;
+
+// Unique per instance so header and footer marks don't share a clip id.
+const clipId = `cs-clip-${Math.random().toString(36).slice(2, 9)}`;
+---
+
+<svg
+  class:list={["cs-logo", className]}
+  width={size}
+  height={size}
+  viewBox="0 0 48 48"
+  role={decorative ? undefined : "img"}
+  aria-hidden={decorative ? "true" : undefined}
+  aria-label={decorative ? undefined : "Cedar & Stone Landscape Co."}
+>
+  <defs>
+    <clipPath id={clipId}>
+      <circle cx="24" cy="24" r="17.4"></circle>
+    </clipPath>
+  </defs>
+
+  <circle
+    cx="24"
+    cy="24"
+    r="20.4"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2.9"></circle>
+
+  <g clip-path={`url(#${clipId})`}>
+    <!-- Shrub mass cresting the wall. One filled path with four broad lobes —
+         large radii so it stays a readable silhouette when scaled down. -->
+    <path
+      d="M8.0 23.0 v-0.9
+         a4.1 4.1 0 0 1 4.5-4.1
+         a5.5 5.5 0 0 1 5.9-4.5
+         a6.1 6.1 0 0 1 11.2-1.0
+         a5.5 5.5 0 0 1 6.4 4.2
+         a4.3 4.3 0 0 1 4.3 4.3
+         v2.0 Z"
+      fill="currentColor"></path>
+
+    <!-- Dry-stack courses: offset joints, each course tapered to the circle. -->
+    <g fill="currentColor">
+      <rect x="7.6" y="24.6" width="15.4" height="4.6" rx="1.1"></rect>
+      <rect x="24.1" y="24.6" width="16.3" height="4.6" rx="1.1"></rect>
+
+      <rect x="10.2" y="29.8" width="7.2" height="4.6" rx="1.1"></rect>
+      <!-- the single warm accent -->
+      <rect
+        class="cs-accent"
+        x="18.5"
+        y="29.8"
+        width="11.0"
+        height="4.6"
+        rx="1.1"></rect>
+      <rect x="30.6" y="29.8" width="7.2" height="4.6" rx="1.1"></rect>
+
+      <rect x="16.4" y="35.0" width="7.0" height="4.6" rx="1.1"></rect>
+      <rect x="24.5" y="35.0" width="7.0" height="4.6" rx="1.1"></rect>
+    </g>
+  </g>
+</svg>
+
+<style>
+  .cs-logo {
+    display: block;
+    flex: none;
+    color: var(--color-primary);
+  }
+  /* The sienna stone is the one element that does not inherit, so the accent
+     survives on cream and on dark alike. */
+  .cs-logo .cs-accent {
+    fill: var(--color-secondary);
+  }
+</style>

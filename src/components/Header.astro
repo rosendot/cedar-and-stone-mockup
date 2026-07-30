@@ -1,11 +1,12 @@
 ---
 /** Fixed site header — goes solid on scroll, collapses to a drawer on mobile. */
+import Logo from "./Logo.astro";
 ---
 
 <header class="site-header" id="header">
   <div class="wrap">
     <a class="brand" href="/">
-      <span class="mark">C&amp;S</span>
+      <Logo size={40} class="mark" />
       <span class="name">Cedar &amp; Stone<small>Landscape Co.</small></span>
     </a>
     <nav class="nav" id="nav">

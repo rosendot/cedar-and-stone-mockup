@@ -13,6 +13,10 @@ const {
   title,
   description = "Cedar & Stone Landscape Co. designs, builds, and maintains yards in Bend, Redmond, Sisters, Tumalo, and Sunriver — central Oregon since 2008.",
 } = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, Astro.site);
+// Absolute — crawlers and social scrapers won't resolve a site-relative path.
+const ogImage = new URL("/og-image.png", Astro.site).href;
 ---
 
 <!doctype html>
@@ -22,10 +26,32 @@ const {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
+    <link rel="canonical" href={canonical} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Cedar & Stone Landscape Co." />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <!-- Icons. SVG first for crisp scaling; WebP raster for browsers that
+         ignore it, PNG for the Apple touch icon. -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/webp" sizes="32x32" href="/favicon-32.webp" />
+    <link rel="icon" type="image/webp" sizes="192x192" href="/icon-192.webp" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="theme-color" content="#283618" />
+
     <meta name="generator" content={Astro.generator} />
   </head>
   <body>
