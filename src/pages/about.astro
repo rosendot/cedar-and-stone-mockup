@@ -7,6 +7,8 @@ import CtaBanner from "../components/CtaBanner.astro";
 const story = [
   {
     slot: "Founder by the original truck & trailer, early days",
+    src: "/photos/about-founder-truck.webp",
+    alt: "The founder standing beside the original pickup and utility trailer, rakes and shovels loaded, at a job site outside Bend",
     title: "It started in 2008 with one truck and a trailer.",
     paras: [
       "Cedar & Stone began when our founder left a bigger regional outfit to do this work the way he thought it should be done — show up when you say you will, build it right the first time, and stand behind it after the check clears.",
@@ -15,6 +17,8 @@ const story = [
   },
   {
     slot: "High-desert planting: native grasses, lava rock, established bed",
+    src: "/photos/about-high-desert.webp",
+    alt: "An established high-desert bed — blue fescue, Russian sage and low junipers grown in among lava rock, with ponderosas and dry hills beyond",
     title: "We only plant what actually thrives out here.",
     paras: [
       "The high desert is its own animal — cold nights, dry air, lava-rock soil, and a short window to get plants established. We've spent years learning which ones shrug all that off and which ones sulk, so your yard fills in instead of limping along.",
@@ -23,6 +27,8 @@ const story = [
   },
   {
     slot: "The same crew on a maintenance visit, pruning & tuning",
+    src: "/photos/about-maintenance-visit.webp",
+    alt: "Two crew members on a maintenance visit — one pruning a shrub, the other adjusting a sprinkler head, with a tarp of clippings between them",
     title: "The crew that builds it is the crew that keeps it up.",
     paras: [
       "We don't hand your yard off to a rotating cast of subcontractors. The same people who set your stone and ran your irrigation are the ones who come back to prune, adjust, and tune it season after season.",
@@ -42,7 +48,10 @@ const stats = [
 <Layout title="About — Cedar &amp; Stone Landscape Co.">
   <!-- ===================== PAGE HERO ===================== -->
   <section class="page-hero" id="top">
-    <ImageSlot label="Wide photo: the crew on site, or a truck-and-trailer with tools, real and unposed" />
+    <ImageSlot
+      src="/photos/about-hero-crew.webp"
+      alt="A Cedar &amp; Stone truck and trailer at the curb of a residential job site, crew unloading wheelbarrows and hand tools at the start of the day"
+    />
     <div class="scrim"></div>
     <div class="hero-inner">
       <div class="wrap">
@@ -69,7 +78,7 @@ const stats = [
           story.map((row, i) => (
             <div class={i % 2 === 1 ? "fa-row flip" : "fa-row"}>
               <div class="fa-media">
-                <ImageSlot label={row.slot} />
+                <ImageSlot label={row.slot} src={row.src} alt={row.alt} />
               </div>
               <div class="fa-body">
                 <h3>{row.title}</h3>
