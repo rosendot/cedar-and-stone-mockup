@@ -136,8 +136,13 @@ a { color: inherit; }
 .nav-toggle span { display: block; width: 24px; height: 2px; background: var(--color-cream); margin: 5px 0; transition: .2s; }
 
 /* ===== HERO ===== */
+/* Full-viewport hero. 100svh is the studio convention across every mockup —
+   svh tracks the *small* viewport so iOS's collapsing address bar can't crop
+   the hero. The vh line above it is the fallback for older browsers. */
 .hero {
-  position: relative; min-height: 94vh;
+  position: relative;
+  min-height: 100vh;
+  min-height: 100svh;
   display: flex; align-items: flex-end;
   overflow: hidden;
 }
