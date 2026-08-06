@@ -9,15 +9,15 @@ import Logo from "./Logo.astro";
       <Logo size={40} class="mark" />
       <span class="name">Cedar &amp; Stone<small>Landscape Co.</small></span>
     </a>
-    <nav class="nav" id="nav">
+    <nav class="nav" id="nav" aria-label="Primary">
       <a class="lnk" href="/services/">Services</a>
       <a class="lnk" href="/portfolio/">Portfolio</a>
       <a class="lnk" href="/about/">About</a>
       <a class="lnk" href="/contact/">Contact</a>
       <a class="btn" href="/contact/">Request an Estimate</a>
     </nav>
-    <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-expanded="false">
-      <span></span><span></span><span></span>
+    <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="nav">
+      <span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span>
     </button>
   </div>
 </header>
@@ -32,15 +32,84 @@ import Logo from "./Logo.astro";
   // Mobile nav
   const navToggle = document.getElementById("navToggle");
   const nav = document.getElementById("nav");
-  navToggle?.addEventListener("click", () => {
-    const open = nav?.classList.toggle("open");
-    navToggle.setAttribute("aria-expanded", open ? "true" : "false");
-  });
-  nav?.addEventListener("click", (e) => {
-    const t = e.target as HTMLElement;
-    if (t.classList.contains("lnk") || t.classList.contains("btn")) {
-      nav.classList.remove("open");
-      navToggle?.setAttribute("aria-expanded", "false");
+
+  if (navToggle && nav) {
+    const focusables = () =>
+      Array.from(nav.querySelectorAll<HTMLElement>("a[href]")).filter(
+        (el) => el.offsetParent !== null
+      );
+
+    function openNav() {
+      nav!.classList.add("open");
+      navToggle!.setAttribute("aria-expanded", "true");
+      navToggle!.setAttribute("aria-label", "Close menu");
+      // Lock the page. Without this the hero scrolled away behind the open
+      // drawer on a wheel/swipe, so closing it landed you somewhere else.
+      document.body.style.overflow = "hidden";
+      focusables()[0]?.focus();
+      document.addEventListener("keydown", onKeydown);
     }
-  });
+
+    function closeNav(restoreFocus = true) {
+      nav!.classList.remove("open");
+      navToggle!.setAttribute("aria-expanded", "false");
+      navToggle!.setAttribute("aria-label", "Open menu");
+      document.body.style.overflow = "";
+      document.removeEventListener("keydown", onKeydown);
+      if (restoreFocus) navToggle!.focus();
+    }
+
+    const isOpen = () => navToggle!.getAttribute("aria-expanded") === "true";
+
+    function onKeydown(e: KeyboardEvent) {
+      if (e.key === "Escape") {
+        e.preventDefault();
+        closeNav();
+        return;
+      }
+      // Trap Tab inside the drawer. Untrapped, the first Tab left the menu
+      // and landed on the hero buttons underneath it — a keyboard user was
+      // driving content they could not see.
+      if (e.key === "Tab") {
+        const items = [...focusables(), navToggle!];
+        if (items.length === 0) return;
+        const first = items[0];
+        const last = items[items.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
+    }
+
+    navToggle.addEventListener("click", () => {
+      if (isOpen()) closeNav();
+      else openNav();
+    });
+
+    // Close on link tap. Every link is a real navigation, so don't steal
+    // focus back to the burger on the way out.
+    nav.addEventListener("click", (e) => {
+      const t = e.target as HTMLElement;
+      if (t.closest(".lnk") || t.closest(".btn")) closeNav(false);
+    });
+
+    // Close when the page behind the scrim is tapped.
+    document.addEventListener("click", (e) => {
+      if (!isOpen()) return;
+      const t = e.target as Node;
+      if (nav.contains(t) || navToggle.contains(t)) return;
+      closeNav();
+    });
+
+    // Reset if the viewport grows past the drawer breakpoint while it's open —
+    // otherwise the body stays locked with no visible menu to close.
+    const mq = window.matchMedia("(min-width: 721px)");
+    mq.addEventListener("change", (e) => {
+      if (e.matches && isOpen()) closeNav(false);
+    });
+  }
 </script>

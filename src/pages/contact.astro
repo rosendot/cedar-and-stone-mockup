@@ -124,6 +124,9 @@ const quickFaqs = [
             </div>
           </div>
           <button class="btn" type="submit">Request an Estimate</button>
+          {/* Announces validation failures to a screen reader. The red border
+              on an invalid field is colour-only, which nothing reads out. */}
+          <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
           <p class="fineprint">
             No spam, no reselling your info. Just a real reply from a real
             person.
@@ -160,6 +163,7 @@ const quickFaqs = [
   // Estimate form — demo only. The mockup has no backend, so a valid submit
   // confirms in place rather than posting anywhere.
   const form = document.getElementById("estimateForm") as HTMLFormElement | null;
+  const status = document.getElementById("formStatus") as HTMLElement;
 
   form?.addEventListener("submit", (e) => {
     e.preventDefault();
@@ -173,15 +177,46 @@ const quickFaqs = [
     const details = detailsEl.value.trim();
 
     if (!name || !email || !details) {
+      let firstInvalid: HTMLElement | null = null;
+
       ([
         [nameEl, name],
         [emailEl, email],
         [detailsEl, details],
       ] as const).forEach(([el, val]) => {
-        el.style.borderColor = val ? "" : "var(--color-primary)";
+        const bad = !val;
+        el.style.borderColor = bad ? "var(--color-error)" : "";
+        // Colour alone is not an error signal (WCAG 1.4.1) and a border says
+        // nothing to a screen reader (3.3.1). Mark the field invalid and put
+        // the reason in a message tied to it via aria-describedby.
+        el.setAttribute("aria-invalid", bad ? "true" : "false");
+
+        const msgId = `${el.id}-err`;
+        let msg = document.getElementById(msgId);
+        if (bad) {
+          if (!msg) {
+            msg = document.createElement("p");
+            msg.id = msgId;
+            msg.className = "field-err";
+            el.insertAdjacentElement("afterend", msg);
+          }
+          msg.textContent = "This one's required.";
+          el.setAttribute("aria-describedby", msgId);
+          if (!firstInvalid) firstInvalid = el;
+        } else {
+          msg?.remove();
+          el.removeAttribute("aria-describedby");
+        }
       });
+
+      // Announce the summary, then land the user on the first problem rather
+      // than leaving them at the button wondering why nothing happened.
+      status.textContent = "Some required fields still need filling in.";
+      firstInvalid?.focus();
       return;
     }
+
+    status.textContent = "";
 
     const first = name.split(" ")[0];
     const confirmation = document.createElement("div");
