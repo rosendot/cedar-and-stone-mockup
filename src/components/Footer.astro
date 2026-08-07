@@ -1,6 +1,7 @@
 ---
 /** Multi-column site footer — identical on every page. */
 import Logo from "./Logo.astro";
+import SocialIcon from "./SocialIcon.astro";
 ---
 
 <footer class="site-footer">
@@ -14,6 +15,10 @@ import Logo from "./Logo.astro";
         Family-run landscaping in central Oregon since 2008. We design, build,
         and maintain yards within 20 miles of Bend.
       </p>
+      <div class="foot-social">
+        <a href="#" aria-label="Instagram"><SocialIcon name="Instagram" /></a>
+        <a href="#" aria-label="Facebook"><SocialIcon name="Facebook" /></a>
+      </div>
     </div>
     <div class="foot-col">
       <h4>Services</h4>

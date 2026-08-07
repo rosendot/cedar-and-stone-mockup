@@ -330,7 +330,12 @@ a { color: inherit; }
 .site-footer { background: var(--color-dark); color: rgba(255,255,255,.72); padding: var(--space-16) var(--space-6) var(--space-8); }
 .footer-grid { display: grid; grid-template-columns: 1.6fr 1fr 1fr 1.2fr; gap: var(--space-10); max-width: var(--max-w-xl); margin: 0 auto var(--space-12); }
 .footer-grid .brand .name { color: var(--color-cream); }
-.foot-blurb { font-size: var(--text-base); line-height: var(--leading-loose); margin: var(--space-5) 0 0; max-width: 38ch; }
+.foot-blurb { font-size: var(--text-base); line-height: var(--leading-loose); margin: var(--space-5) 0 var(--space-6); max-width: 38ch; }
+/* Social row — bordered circles holding inline SVG glyphs. The icons inherit
+   currentColor, so the hover rule below needs no extra fill handling. */
+.foot-social { display: flex; gap: var(--space-3); }
+.foot-social a { width: 40px; height: 40px; border-radius: var(--radius-full); border: 1px solid rgba(255,255,255,.2); display: grid; place-items: center; color: var(--color-cream); text-decoration: none; transition: all .18s ease; }
+.foot-social a:hover { background: var(--color-secondary); border-color: var(--color-secondary); color: var(--color-dark); }
 .foot-col h4 { font-size: var(--text-xs); text-transform: uppercase; letter-spacing: var(--tracking-wide); color: var(--color-secondary); margin: 0 0 var(--space-5); font-weight: 600; }
 .foot-col ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: var(--space-3); }
 .foot-col a { text-decoration: none; font-size: var(--text-base); color: rgba(255,255,255,.72); }
@@ -544,6 +549,9 @@ a { color: inherit; }
   .foot-col ul a { display: block; padding: var(--space-2) 0; }
   .foot-col h4 { margin-bottom: var(--space-3); }
   .foot-blurb { margin-top: var(--space-4); }
+  /* 40px fails WCAG 2.5.8 — the same 44px minimum the rest of the footer's
+     controls already meet. */
+  .foot-social a { width: 44px; height: 44px; }
 
   /* The bottom bar's two lines wrap to their own rows below ~500px. Left-align
      so the second line starts where the first does instead of being pushed
